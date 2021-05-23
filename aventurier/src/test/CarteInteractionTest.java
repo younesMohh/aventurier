@@ -13,7 +13,6 @@ class CarteInteractionTest {
 	private static String input;
 	@BeforeAll
 	  static void initAll() {
-	    System.out.println("BeforeAll");
 		ResourceBundle bundle = ResourceBundle.getBundle("properties.config");
 		 input=bundle.getString("data.input");
 	  }
@@ -37,10 +36,20 @@ class CarteInteractionTest {
 	}
 	@Test
 	void calculNewPositionWrongPsitionTest() throws Exception {
-		
 		 Assertions.assertThrows(Exception.class, () -> {
-			 new CarteInteraction(new Coordinate(12,4),"OONOOOSSO").calculNewPosition();
+			 new CarteInteraction(new Coordinate(12,4),"OONOOSSOO").calculNewPosition();
 			  });
 	}
-
+	@Test
+	void calculNewPositionNullPsitionTest() throws Exception {
+		 Assertions.assertThrows(Exception.class, () -> {
+			 new CarteInteraction(null,"OONOOSSOO").calculNewPosition();
+			  });
+	}
+	@Test
+	void calculNewPositionEmptyDisplacementTest() throws Exception {
+		Coordinate result=new CarteInteraction(new Coordinate(3,0),"").calculNewPosition();
+		Assertions.assertEquals(result.getX(), 3);
+		Assertions.assertEquals(result.getY(), 0);
+	}
 }

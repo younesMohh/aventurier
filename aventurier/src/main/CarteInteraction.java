@@ -31,6 +31,8 @@ public class CarteInteraction {
 
 	}
 	public Coordinate calculNewPosition()throws Exception {
+		if(initial==null)throw new Exception("(x,y) unknown box");
+		if(movement==null)movement="";
 		ResourceBundle bundle = ResourceBundle.getBundle("properties.config");
 		String fileName=bundle.getString("carte.path");
 		carts=	FilesUtil.readTextFileByLines(fileName);
